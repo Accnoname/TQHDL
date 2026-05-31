@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Impact Jobs Dashboard</title>
+  <style>
+    :root {
+      --ink: #1c1b17;
+      --muted: #5a564c;
+      --accent: #0f5fa3;
+      --accent-2: #d04a4a;
+      --accent-3: #2b8a6e;
+      --card: #fff8ee;
+      --card-2: #f6f2ea;
+      --border: #e0d6c7;
+      --shadow: 0 18px 40px rgba(19, 18, 16, 0.14);
+      --radius: 18px;
+      --font-display: "Georgia", "Times New Roman", serif;
+      --font-body: "Trebuchet MS", "Tahoma", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(15, 95, 163, 0.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 0%, rgba(208, 74, 74, 0.16), transparent 60%),
+        linear-gradient(180deg, #f5efe5 0%, #f0f3f7 45%, #f7f4ee 100%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+        radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+      background-position: 0 0, 18px 18px;
+      background-size: 36px 36px;
+      pointer-events: none;
+      opacity: 0.35;
+      z-index: -1;
+    }
+
+    header {
+      padding: 48px 6vw 32px;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0 0 12px;
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      margin: 0 0 20px;
+      line-height: 1.6;
+    }
+
+    header::after {
+      content: "";
+      display: block;
+      width: 100%;
+      max-width: 520px;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+      animation: sweep 1.6s ease-out forwards;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    main {
+      padding: 0 6vw 48px;
+    }
+
+    .section {
+      margin: 36px 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      animation: riseIn 0.8s ease-out both;
+    }
+
+    .section:nth-of-type(2) { animation-delay: 0.08s; }
+    .section:nth-of-type(3) { animation-delay: 0.14s; }
+    .section:nth-of-type(4) { animation-delay: 0.2s; }
+    .section:nth-of-type(5) { animation-delay: 0.26s; }
+    .section:nth-of-type(6) { animation-delay: 0.32s; }
+
+    .section h2 {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+    }
+
+    .section p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    figure {
+      margin: 0;
+      background: var(--card-2);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: grid;
+    }
+
+    figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    figcaption {
+      padding: 10px 12px 12px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .map-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    iframe {
+      width: 100%;
+      min-height: 420px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #ffffff;
+    }
+
+    .note {
+      background: rgba(255, 255, 255, 0.75);
+      border-left: 4px solid var(--accent);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 24px 6vw 40px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes sweep {
+      from { width: 0; opacity: 0; }
+      to { width: 100%; opacity: 1; }
+    }
+
+    @media (max-width: 700px) {
+      header { padding: 36px 6vw 24px; }
+      .section { padding: 20px; }
+      iframe { min-height: 320px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AI Impact Jobs 2010-2025</h1>
+    <p>
+      A compact dashboard for the AI impact jobs analysis. Run the pipeline to refresh
+      figures, then open this file to review all steps in one place.
+    </p>
+    <div class="meta">
+      <span class="pill">Dataset: ai_impact_jobs_2010_2025.csv</span>
+      <span class="pill">Outputs: reports/figures</span>
+      <span class="pill">Scope: 2010-2025</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2>Step 01 - Overview</h2>
+      <p>Job postings by year, top industries, top countries, and seniority by region.</p>
+      <div class="grid">
+        <figure>
+          <img src="figures/output_step_01_overview_1.png" alt="Step 01 overview chart 1" />
+          <figcaption>Postings by year.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_01_overview_2.png" alt="Step 01 overview chart 2" />
+          <figcaption>Top 10 industries.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_01_overview_3.png" alt="Step 01 overview chart 3" />
+          <figcaption>Top 15 countries.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_01_overview_4.png" alt="Step 01 overview chart 4" />
+          <figcaption>Seniority mix by region.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Step 02 - Univariate</h2>
+      <p>AI intensity, automation risk distribution, adoption stage mix, and salary spread.</p>
+      <div class="grid">
+        <figure>
+          <img src="figures/output_step_02_univariate_1.png" alt="Step 02 univariate chart 1" />
+          <figcaption>AI intensity quartiles.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_02_univariate_2.png" alt="Step 02 univariate chart 2" />
+          <figcaption>Automation risk distribution.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_02_univariate_3.png" alt="Step 02 univariate chart 3" />
+          <figcaption>AI adoption stage by industry.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_02_univariate_4.png" alt="Step 02 univariate chart 4" />
+          <figcaption>Salary distribution.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Step 03 - Bivariate</h2>
+      <p>Salary by seniority, top industries by salary, and automation risk by industry.</p>
+      <div class="grid">
+        <figure>
+          <img src="figures/output_step_03_bivariate_1.png" alt="Step 03 bivariate chart 1" />
+          <figcaption>Median salary by seniority.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_03_bivariate_2.png" alt="Step 03 bivariate chart 2" />
+          <figcaption>Top industries by median salary.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_03_bivariate_3.png" alt="Step 03 bivariate chart 3" />
+          <figcaption>Median automation risk by industry.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Step 04 - Trends</h2>
+      <p>AI mention rate, salary trends, automation risk trends, and reskilling needs.</p>
+      <div class="grid">
+        <figure>
+          <img src="figures/output_step_04_trends_1.png" alt="Step 04 trends chart 1" />
+          <figcaption>AI mention rate by year.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_04_trends_2.png" alt="Step 04 trends chart 2" />
+          <figcaption>Median and mean salary by year.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_04_trends_3.png" alt="Step 04 trends chart 3" />
+          <figcaption>Automation risk trend.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_04_trends_4.png" alt="Step 04 trends chart 4" />
+          <figcaption>Reskilling trend.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Step 05 - Skills and Text</h2>
+      <p>Top skills, top AI keywords, reskilling by industry, and displacement risk mix.</p>
+      <div class="grid">
+        <figure>
+          <img src="figures/output_step_05_text_skills_1.png" alt="Step 05 skills chart 1" />
+          <figcaption>Top core skills.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_05_text_skills_2.png" alt="Step 05 skills chart 2" />
+          <figcaption>Top AI keywords.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_05_text_skills_3.png" alt="Step 05 skills chart 3" />
+          <figcaption>Reskilling rate by industry.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/output_step_05_text_skills_4.png" alt="Step 05 skills chart 4" />
+          <figcaption>Displacement risk mix by industry.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Step 06 - Strategic</h2>
+      <p>Risk distribution by adoption stage and optional interactive world maps.</p>
+      <div class="grid">
+        <figure>
+          <img src="figures/output_step_06_strategic_1.png" alt="Step 06 strategic chart" />
+          <figcaption>Risk share by AI adoption stage.</figcaption>
+        </figure>
+      </div>
+
+      <div class="note" style="margin-top: 16px;">
+        If the interactive maps exist, they will load below. Otherwise, run the step 06
+        script with Plotly installed to generate the HTML outputs.
+      </div>
+
+      <div class="map-grid" style="margin-top: 16px;">
+        <iframe src="figures/output_step_06_worldmap_jobs.html" title="World map - job count" loading="lazy"></iframe>
+        <iframe src="figures/output_step_06_worldmap_salary.html" title="World map - salary" loading="lazy"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Dashboard file: reports/dashboard.html. Update figures with python main.py when needed.
+  </footer>
+</body>
+</html>
