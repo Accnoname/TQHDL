@@ -22,7 +22,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     # Định dạng các cột thành Category có thứ tự (Ordinal Categorical)
     df_prep["seniority_level"] = pd.Categorical(
         df_prep["seniority_level"],
-        categories=["Junior", "Mid", "Senior", "Lead", "Executive"],
+        categories=["Intern", "Junior", "Mid", "Senior", "Lead", "Executive"],
         ordered=True,
     )
     df_prep["company_size"] = pd.Categorical(

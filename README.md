@@ -1,12 +1,11 @@
-# 🤖 AI Impact on Job Market — Data Visualization (2010–2025)
+# AI Impact on Job Market — Interactive Dashboard 🚀
 
-> Phân tích toàn diện tác động của trí tuệ nhân tạo lên thị trường lao động toàn cầu giai đoạn **2010–2025** thông qua chuỗi EDA 6 bước và dashboard tương tác.
+> Phân tích toàn diện tác động của trí tuệ nhân tạo (AI) lên thị trường lao động toàn cầu giai đoạn **2010–2025** thông qua Dashboard Streamlit tương tác chuyên nghiệp.
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-EDA-150458?logo=pandas&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.33%2B-FF4B4B?logo=streamlit&logoColor=white)
 ![Plotly](https://img.shields.io/badge/Plotly-Interactive-3F4F75?logo=plotly&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-Charts-11557C)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Pandas](https://img.shields.io/badge/Pandas-Data-150458?logo=pandas&logoColor=white)
 
 ---
 
@@ -15,12 +14,9 @@
 1. [Giới thiệu](#giới-thiệu)
 2. [Tính năng nổi bật](#tính-năng-nổi-bật)
 3. [Cấu trúc dự án](#cấu-trúc-dự-án)
-4. [Luồng xử lý dữ liệu](#luồng-xử-lý-dữ-liệu)
-5. [Các bước phân tích](#các-bước-phân-tích)
-6. [Cài đặt & Chạy nhanh](#cài-đặt--chạy-nhanh)
-7. [Dashboard](#dashboard)
-8. [Quy ước & Tiêu chuẩn](#quy-ước--tiêu-chuẩn)
-9. [Tài liệu liên quan](#tài-liệu-liên-quan)
+4. [Cài đặt & Chạy dự án](#cài-đặt--chạy-dự-án)
+5. [Tạo dữ liệu mẫu](#tạo-dữ-liệu-mẫu)
+6. [Cấu trúc Dashboard](#cấu-trúc-dashboard)
 
 ---
 
@@ -31,232 +27,89 @@ Dự án sử dụng bộ dữ liệu tuyển dụng đa quốc gia giai đoạn
 - Thị trường lao động thay đổi như thế nào dưới tác động của AI?
 - Ngành nghề nào có rủi ro tự động hóa cao nhất?
 - Kỹ năng nào đang được ưu tiên và xu hướng lương biến động ra sao?
-- Giai đoạn áp dụng AI của ngành liên hệ thế nào với rủi ro dịch chuyển việc làm?
+- Các quốc gia đang phản ứng thế nào với làn sóng AI?
 
-Kết quả được trình bày qua **20+ biểu đồ EDA**, **2 bản đồ thế giới tương tác** và một **dashboard HTML chuyên nghiệp**.
+Kết quả được trình bày trực quan thông qua **hơn 12 biểu đồ tương tác**, **bản đồ thế giới (Choropleth)** và hệ thống **KPI động** trên nền tảng Web App Streamlit.
 
 ---
 
 ## Tính năng nổi bật
 
-| Tính năng | Mô tả |
-|-----------|-------|
-| 📊 **6 bước EDA** | Từ tổng quan → đơn biến → song biến → xu hướng → kỹ năng → chiến lược |
-| 🌍 **Bản đồ thế giới** | Choropleth tương tác (Plotly) theo nhu cầu tuyển dụng và mức lương |
-| 🖥️ **Dashboard HTML** | Giao diện dark-mode chuyên nghiệp, sidebar điều hướng cố định |
-| 🔄 **Pipeline tự động** | Một lệnh `python main.py` tạo toàn bộ output |
-| 📁 **Cấu trúc rõ ràng** | Tách biệt data / src / reports theo chuẩn data science |
+- 🌗 **Light / Dark Mode Native**: Giao diện (UI) hỗ trợ chuyển đổi Light/Dark mode linh hoạt trực tiếp từ Sidebar với bộ CSS tuỳ chỉnh sâu (Glassmorphism, Neon/Clean UI).
+- 🎛️ **Bộ Lọc Động (Dynamic Filters)**: Lọc dữ liệu real-time theo Năm, Khoảng lương, Khu vực, Ngành nghề, Mức độ áp dụng AI, và Cấp độ kinh nghiệm.
+- 🌍 **Bản đồ Thế Giới (Map)**: Trực quan hoá dữ liệu không gian bằng Plotly Geo, hiển thị mật độ tin tuyển dụng và cường độ AI theo quốc gia.
+- 🎨 **Material Symbols**: Sử dụng bộ icon tiêu chuẩn Google Material Design, chuyên nghiệp và tối giản.
+- 📊 **Tối Ưu Hoá Layout**: Bố cục Dashboard rộng (Wide Mode) tận dụng tối đa không gian hiển thị cho các biểu đồ phân tích.
 
 ---
 
 ## Cấu trúc dự án
 
-```
-data_visualization/
-│
-├── main.py                               # ▶ Điểm chạy chính — gọi toàn bộ pipeline
-├── requirements.txt                      # 📦 Thư viện Python cần cài
-├── README.md                             # 📖 Tài liệu này
-├── CHANGELOG.md                          # 📝 Nhật ký thay đổi (Keep a Changelog)
-├── EXPERIMENTS.md                        # 🧪 Nhật ký thử nghiệm
-├── RULES.md                              # 📐 Quy tắc & quy ước dự án
-├── TASKS.md                              # ✅ Bảng công việc theo giai đoạn
-│
-├── data/
-│   ├── raw/
-│   │   └── ai_impact_jobs_2010_2025.csv  # 🗃 Dữ liệu gốc — KHÔNG chỉnh sửa
-│   ├── processed/
-│   │   └── ai_impact_jobs_processed.csv  # ⚙️ Dữ liệu sau tiền xử lý
-│   └── cleaned/                          # 🧹 Dữ liệu trung gian (nếu có)
-│
-├── src/
-│   ├── data/
-│   │   ├── load_data.py                  # Nạp CSV, tạo cột list kỹ năng
-│   │   ├── cleaning.py                   # Làm sạch missing, chuẩn hóa kiểu số
-│   │   └── preprocess.py                 # Encode Categorical, lưu processed
-│   ├── utils/
-│   │   └── helper.py                     # Hàm tiện ích (format tiền tệ, thống kê)
-│   └── visualization/
-│       ├── plots.py                      # 🎯 Chạy toàn bộ 6 bước
-│       ├── step_01_overview.py           # Tổng quan thị trường
-│       ├── step_02_univariate.py         # Phân tích đơn biến
-│       ├── step_03_bivariate.py          # Phân tích song biến
-│       ├── step_04_trends.py             # Xu hướng theo thời gian
-│       ├── step_05_text_skills.py        # Kỹ năng & phân tích text
-│       └── step_06_strategic_insights.py # Chiến lược & bản đồ
-│
-└── reports/
-    ├── dashboard.html                    # 🖥️ Dashboard (mở bằng trình duyệt)
-    ├── REPORT.md                         # 📄 Báo cáo phân tích chi tiết
-    └── figures/
-        ├── output_step_01_*.png
-        ├── output_step_02_*.png
-        ├── output_step_03_*.png
-        ├── output_step_04_*.png
-        ├── output_step_05_*.png
-        ├── output_step_06_worldmap_jobs.html    # 🌍 Bản đồ tuyển dụng
-        └── output_step_06_worldmap_salary.html  # 🌍 Bản đồ lương
+```text
+📁 data_visualization/
+├── 📄 dashboard.py              # Entry point của Streamlit App
+├── 📄 generate_mock_data.py     # Script tạo 10.000 dòng dữ liệu mẫu giả lập
+├── 📁 data/
+│   └── ai_job_market_mock.csv   # Dataset sử dụng cho Dashboard
+├── 📁 src/
+│   └── 📁 dashboard/            # Logic và giao diện của các thẻ (Tabs)
+│       ├── kpis.py              # Hiển thị các chỉ số tổng quan (KPIs)
+│       ├── styles.py            # CSS cấu hình Light/Dark Mode (Theme)
+│       ├── tab_map.py           # Phân tích theo Bản đồ quốc gia
+│       ├── tab_overview.py      # Phân tích tổng quan (Overview)
+│       ├── tab_risk.py          # Phân tích rủi ro tự động hoá
+│       └── tab_salary.py        # Phân tích Mức lương & Kỹ năng
+├── 📄 requirements.txt          # Danh sách thư viện Python
+└── 📄 README.md                 # Tài liệu hướng dẫn
 ```
 
 ---
 
-## Luồng xử lý dữ liệu
+## Cài đặt & Chạy dự án
 
+**1. Clone dự án và cài đặt môi trường ảo (khuyến nghị)**
+
+```bash
+python -m venv venv
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
 ```
-data/raw/ ──▶ load_data.py ──▶ cleaning.py ──▶ preprocess.py ──▶ data/processed/
-                                                                        │
-                                                                        ▼
-                                                        src/visualization/plots.py
-                                                                        │
-                                        ┌───────────────┬───────────────┴──────────────┐
-                                        ▼               ▼                               ▼
-                                   step_01~06      figures/*.png               dashboard.html
-```
 
-1. **Nạp dữ liệu** — `load_data.py` đọc CSV gốc, tạo cột list kỹ năng.
-2. **Làm sạch** — `cleaning.py` xử lý missing values, chuẩn hóa kiểu số.
-3. **Tiền xử lý** — `preprocess.py` encode Categorical, lưu file `processed`.
-4. **Trực quan hóa** — `plots.py` gọi tuần tự 6 bước, xuất PNG và HTML.
-
----
-
-## Các bước phân tích
-
-### 📊 Step 01 — Tổng Quan Thị Trường
-> [`step_01_overview.py`](src/visualization/step_01_overview.py)
-
-- Số tin tuyển dụng theo từng năm (2010–2025)
-- Top ngành có nhu cầu tuyển dụng cao nhất
-- Top quốc gia theo số lượng tin đăng
-- Cơ cấu cấp độ kinh nghiệm theo khu vực (Stacked 100%)
-
-### 📉 Step 02 — Phân Tích Đơn Biến
-> [`step_02_univariate.py`](src/visualization/step_02_univariate.py)
-
-- Phân phối cường độ AI theo tứ phân vị (`ai_intensity_score`)
-- Histogram điểm rủi ro tự động hóa (`automation_risk_score`)
-- Giai đoạn áp dụng AI theo ngành — Emerging / Growing / Mature
-- Boxplot mức lương tổng quan (USD)
-
-### 🔗 Step 03 — Phân Tích Song Biến
-> [`step_03_bivariate.py`](src/visualization/step_03_bivariate.py)
-
-- Lương trung vị theo cấp độ kinh nghiệm (Junior → Executive)
-- Top ngành có lương trung vị cao nhất
-- Phân bổ rủi ro tự động hóa theo ngành (Boxplot)
-
-### 📅 Step 04 — Xu Hướng Theo Thời Gian
-> [`step_04_trends.py`](src/visualization/step_04_trends.py)
-
-- Tỷ lệ tin tuyển dụng đề cập AI theo năm
-- Lương trung vị và trung bình theo năm
-- Xu hướng điểm rủi ro tự động hóa
-- Xu hướng nhu cầu tái đào tạo (Stackplot)
-
-### 🎓 Step 05 — Kỹ Năng & Phân Tích Văn Bản
-> [`step_05_text_skills.py`](src/visualization/step_05_text_skills.py)
-
-- Top kỹ năng cốt lõi được yêu cầu nhiều nhất
-- Top từ khóa AI phổ biến trong tin tuyển dụng
-- Tỷ lệ yêu cầu tái đào tạo (reskilling) theo ngành
-- Rủi ro dịch chuyển việc làm theo ngành (Stacked 100%)
-
-### 🧠 Step 06 — Phân Tích Chiến Lược
-> [`step_06_strategic_insights.py`](src/visualization/step_06_strategic_insights.py)
-
-- Phân bổ rủi ro dịch chuyển theo giai đoạn áp dụng AI (Stacked 100%)
-- 🌍 Bản đồ choropleth tương tác — mật độ tuyển dụng theo quốc gia
-- 🌍 Bản đồ choropleth tương tác — lương trung vị theo quốc gia
-
----
-
-## Cài đặt & Chạy nhanh
-
-**Yêu cầu:** Python 3.9+ · pip
-
-### 1. Cài thư viện
+**2. Cài đặt thư viện phụ thuộc**
 
 ```bash
 pip install -r requirements.txt
 ```
+*(Yêu cầu cài đặt `streamlit`, `pandas`, `plotly`)*
 
-### 2. Chạy toàn bộ pipeline
-
-```bash
-python main.py
-```
-
-### 3. Chạy từng bước riêng lẻ
+**3. Chạy Dashboard**
 
 ```bash
-python src/visualization/step_01_overview.py
-python src/visualization/step_02_univariate.py
-python src/visualization/step_03_bivariate.py
-python src/visualization/step_04_trends.py
-python src/visualization/step_05_text_skills.py
-python src/visualization/step_06_strategic_insights.py
+python -m streamlit run dashboard.py
 ```
 
-### 4. Tiền xử lý dữ liệu (tuỳ chọn)
+Dashboard sẽ được tự động mở trên trình duyệt tại địa chỉ: `http://localhost:8501`.
+
+---
+
+## Tạo dữ liệu mẫu
+
+Nếu bạn chưa có tệp `data/ai_job_market_mock.csv`, bạn có thể tự tạo bộ dữ liệu giả lập chuẩn xác bằng lệnh:
 
 ```bash
-python src/data/preprocess.py
+python generate_mock_data.py
 ```
-
-### 5. Xem dashboard
-
-Mở bằng trình duyệt (Chrome / Edge / Firefox):
-
-```
-reports/dashboard.html
-```
+Script này sẽ tạo ra 10.000 bản ghi phân bổ hợp lý theo xu hướng tăng trưởng AI, lạm phát lương, và rủi ro tự động hoá theo ngành nghề.
 
 ---
 
-## Dashboard
+## Cấu trúc Dashboard
 
-Dashboard xây dựng bằng HTML + CSS thuần — **không cần server**, chỉ cần mở bằng trình duyệt.
+Dashboard được chia thành 4 thẻ (Tabs) chính:
 
-| Tính năng | Chi tiết |
-|-----------|---------|
-| 🌙 Dark mode | Palette màu neon chuyên nghiệp |
-| 🧭 Sidebar cố định | Tự highlight theo vị trí cuộn trang |
-| 📈 Biểu đồ nhúng | Toàn bộ EDA hiển thị trực tiếp |
-| 🌍 Bản đồ tương tác | 2 choropleth Plotly nhúng qua iframe |
-| 📱 Responsive | Sidebar chuyển tab ngang trên màn hình nhỏ |
-
----
-
-## Quy ước & Tiêu chuẩn
-
-| Quy tắc | Chi tiết |
-|---------|---------|
-| 📂 Dữ liệu gốc | Tuyệt đối **không** chỉnh sửa `data/raw/` |
-| 🖼️ Tên file hình | `output_step_XX_<tên>.png` → `reports/figures/` |
-| 🎨 Màu sắc | AI skills → đỏ · Core skills → xanh · Risk: Low / Medium / High |
-| 💾 Xuất PNG | `dpi=150`, `bbox_inches="tight"` |
-| 🔢 Top N | Giới hạn top 10–15 để biểu đồ dễ đọc |
-| 📝 Changelog | Cập nhật `CHANGELOG.md` mỗi khi sửa code |
-| 🧪 Thử nghiệm | Ghi vào `EXPERIMENTS.md` sau mỗi thử nghiệm mới |
-
----
-
-## Tài liệu liên quan
-
-| Tài liệu | Mô tả |
-|----------|-------|
-| [RULES.md](RULES.md) | Quy tắc làm việc, quy ước đặt tên, guideline trực quan hóa |
-| [EXPERIMENTS.md](EXPERIMENTS.md) | Nhật ký thử nghiệm, kết quả và kết luận |
-| [CHANGELOG.md](CHANGELOG.md) | Lịch sử thay đổi theo chuẩn Keep a Changelog |
-| [TASKS.md](TASKS.md) | Bảng công việc theo giai đoạn |
-| [reports/REPORT.md](reports/REPORT.md) | Báo cáo phân tích chi tiết — tóm tắt điều hành & khuyến nghị |
-| [reports/dashboard.html](reports/dashboard.html) | Dashboard trực quan hóa tổng hợp |
-
----
-
-<div align="center">
-
-**AI Impact Dashboard** · Phân tích dữ liệu tuyển dụng 2010–2025  
-_Chạy `python main.py` để cập nhật toàn bộ biểu đồ_
-
-</div>
+1. **Tổng Quan**: Hiển thị xu hướng tuyển dụng qua các năm, tỷ lệ đề cập đến AI, và các ngành nghề/quốc gia dẫn đầu.
+2. **Lương & Kỹ Năng**: Phân tích chuyên sâu về mức lương trung vị theo cấp độ kinh nghiệm, xu hướng lạm phát lương, và các kỹ năng cốt lõi được nhà tuyển dụng săn đón.
+3. **Rủi Ro AI**: Đánh giá chỉ số rủi ro tự động hoá (Automation Risk), phân tích mối quan hệ giữa rủi ro và mức lương, và tỷ lệ yêu cầu đào tạo lại (Reskilling).
+4. **Bản Đồ Thế Giới**: Hai bản đồ thế giới tương tác (Choropleth) hiển thị mật độ tin tuyển dụng và cường độ AI trải khắp toàn cầu.

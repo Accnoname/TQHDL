@@ -26,7 +26,7 @@ def load() -> pd.DataFrame:
     # Ordinal ordering helpers
     df["seniority_level"] = pd.Categorical(
         df["seniority_level"],
-        categories=["Junior", "Mid", "Senior", "Lead", "Executive"],
+        categories=["Intern", "Junior", "Mid", "Senior", "Lead", "Executive"],
         ordered=True,
     )
     df["company_size"] = pd.Categorical(

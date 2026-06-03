@@ -34,16 +34,22 @@ def main():
 
     # 1. Số tin đăng theo năm
     fig, ax = plt.subplots(figsize=(10, 6))
-    by_year = df.groupby("posting_year").size()
-    year_colors = plt.cm.Blues(np.linspace(0.45, 0.95, len(by_year)))
-    ax.bar(by_year.index, by_year.values, color=year_colors, edgecolor="white", linewidth=0.5)
+    by_year = df.groupby("posting_year").size().sort_index()
+    ax.plot(
+        by_year.index,
+        by_year.values,
+        color=ACCENT,
+        marker="o",
+        linewidth=2.2,
+        markersize=5,
+    )
     ax.set_title("Số Tin Đăng Theo Năm")
     ax.set_xlabel("Năm")
     ax.set_ylabel("Số lượng")
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{int(x):,}"))
-    for bar, val in zip(ax.patches, by_year.values):
-        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 2, str(val),
-                ha="center", va="bottom", fontsize=7)
+    label_offset = max(by_year.values) * 0.02
+    for year, val in by_year.items():
+        ax.text(year, val + label_offset, str(val), ha="center", va="bottom", fontsize=7)
     _save_fig(fig, OUTPUT_1)
 
     # 2. Top 10 ngành nghề
