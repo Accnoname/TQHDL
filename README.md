@@ -48,7 +48,7 @@ Kết quả được trình bày trực quan thông qua **hơn 12 biểu đồ t
 ```text
 📁 data_visualization/
 ├── 📄 dashboard.py              # Entry point của Streamlit App
-├── 📄 generate_mock_data.py     # Script tạo 10.000 dòng dữ liệu mẫu giả lập
+├── 📄 generate_mock_data.py     
 ├── 📁 data/
 │   └── ai_job_market_mock.csv   # Dataset sử dụng cho Dashboard
 ├── 📁 src/
