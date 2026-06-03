@@ -118,17 +118,15 @@ Dashboard được chia thành 4 thẻ (Tabs) chính:
 
 ## 📸 Hình ảnh Dashboard (Screenshots)
 
-Dưới đây là một số hình ảnh demo của hệ thống phân tích:
+Dưới đây là hình ảnh thực tế của hệ thống phân tích:
 
-*(Bạn có thể thay thế các ảnh dưới đây bằng ảnh chụp màn hình thực tế)*
+### 1. Giao Diện Tổng Quan (Overview)
+![Giao Diện Tổng Quan](docs/images/dashboard.png)
 
-### 1. Bản Đồ Thế Giới (Mật Độ Tuyển Dụng & Lương)
-![Bản Đồ Thế Giới](docs/images/map_overview.png)
+### 2. Bản Đồ Phân Bố Việc Làm (World Count Job)
+![Bản Đồ Phân Bố Việc Làm](docs/images/WorldCountJob.png)
 
-### 2. Giao Diện Tổng Quan (Overview)
-![Giao Diện Tổng Quan](docs/images/dashboard_overview.png)
-
-### 3. Phân Tích Rủi Ro AI (AI Risk)
-![Phân Tích Rủi Ro](docs/images/dashboard_risk.png)
+### 3. Bản Đồ Mức Lương (World Salary)
+![Bản Đồ Mức Lương](docs/images/WorldSalary.png)
 
 ---
