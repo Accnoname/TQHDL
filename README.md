@@ -113,3 +113,22 @@ Dashboard được chia thành 4 thẻ (Tabs) chính:
 2. **Lương & Kỹ Năng**: Phân tích chuyên sâu về mức lương trung vị theo cấp độ kinh nghiệm, xu hướng lạm phát lương, và các kỹ năng cốt lõi được nhà tuyển dụng săn đón.
 3. **Rủi Ro AI**: Đánh giá chỉ số rủi ro tự động hoá (Automation Risk), phân tích mối quan hệ giữa rủi ro và mức lương, và tỷ lệ yêu cầu đào tạo lại (Reskilling).
 4. **Bản Đồ Thế Giới**: Hai bản đồ thế giới tương tác (Choropleth) hiển thị mật độ tin tuyển dụng và cường độ AI trải khắp toàn cầu.
+
+---
+
+## 📸 Hình ảnh Dashboard (Screenshots)
+
+Dưới đây là một số hình ảnh demo của hệ thống phân tích:
+
+*(Bạn có thể thay thế các ảnh dưới đây bằng ảnh chụp màn hình thực tế)*
+
+### 1. Bản Đồ Thế Giới (Mật Độ Tuyển Dụng & Lương)
+![Bản Đồ Thế Giới](docs/images/map_overview.png)
+
+### 2. Giao Diện Tổng Quan (Overview)
+![Giao Diện Tổng Quan](docs/images/dashboard_overview.png)
+
+### 3. Phân Tích Rủi Ro AI (AI Risk)
+![Phân Tích Rủi Ro](docs/images/dashboard_risk.png)
+
+---
